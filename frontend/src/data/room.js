@@ -16,7 +16,7 @@ export const roomCategories = [
     name: "Board Room",
     count: 1,
     rooms: [
-      { id: 3, name: "Board Room-1", capacity: 20, image: br },
+      { id: 3, name: "Board Room-1", capacity: 20, image: aud },
     ]
   },
   {
