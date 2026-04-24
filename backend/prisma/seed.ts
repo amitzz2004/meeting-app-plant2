@@ -15,6 +15,7 @@ async function main() {
       email: "admin@deepiping.com",
       password: hashedPassword,
       role: "ADMIN",
+      status: "APPROVED",
     },
   });
 
@@ -22,14 +23,10 @@ async function main() {
   console.log("📧 Email: admin@deepiping.com");
   console.log("🔑 Password: Admin@123");
 
-  // ✅ Seed rooms
+  // ✅ Seed Plant 2 rooms
   const rooms = [
-    { name: "Small Conference-1", capacity: 6 },
-    { name: "Small Conference-2", capacity: 6 },
-    { name: "Small Conference-3", capacity: 6 },
-    { name: "Small Conference-4", capacity: 6 },
-    { name: "Big Conference-1", capacity: 20 },
-    { name: "Big Conference-2", capacity: 20 },
+    { name: "Small Conference-1", capacity: 20 },
+    { name: "Small Conference-2", capacity: 20 },
     { name: "Auditorium-1", capacity: 100 },
     { name: "Training Room", capacity: 30 },
   ];
