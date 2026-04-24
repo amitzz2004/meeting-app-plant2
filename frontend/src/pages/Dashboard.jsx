@@ -45,7 +45,7 @@ export default function Dashboard() {
                  <span className="text-[#4333a5]">PIPING SYSTEM</span>
               </h1>
               <p className="text-xs text-slate-400">
-                Inhouse Meeting Room Booking Platform • v1.0
+                Inhouse Meeting Room Booking Platform 
               </p>
             </div>
           </div>
@@ -115,7 +115,7 @@ export default function Dashboard() {
               <p className="text-sm text-slate-600 leading-snug flex-1">
                 {index === 0 && "Ideal for team discussions"}
                 {index === 1 && "Perfect for client meetings & presentations"}
-                {index === 2 && "Spacious for leadership sessions"}
+                {index === 2 && "For Training Purposes"}
                 {index === 3 && "For Training purposes"}
               </p>
 

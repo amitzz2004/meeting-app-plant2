@@ -45,7 +45,7 @@ export default function RoomPage() {
                 <span className="text-[#4333a5]">PIPING SYSTEM</span>
               </h1>
               <p className="text-xs text-slate-400">
-                Inhouse Meeting Room Booking Platform • v1.0
+                Inhouse Meeting Room Booking Platform 
               </p>
             </div>
           </div>

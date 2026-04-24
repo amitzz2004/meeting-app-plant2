@@ -144,7 +144,7 @@ export default function AdminDashboard() {
               <span style={{ color: "#4333a5" }}> PIPING SYSTEM</span>
             </div>
             <div style={{ fontSize: 11, color: "rgba(255,255,255,0.4)" }}>
-              Inhouse Meeting Room Booking Platform • v1.0
+              Inhouse Meeting Room Booking Platform 
             </div>
           </div>
         </div>
