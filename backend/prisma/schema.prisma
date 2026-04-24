@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ================== ENUMS ==================
+
+
+
+
+// ================== MODELS ==================
+model User {
+  id          Int      @id @default(autoincrement())
+  name        String
+  email       String   @unique
+  password    String
+  department  String?
+  role        String     @default("USER")
+  status      String   @default("PENDING")
+  
+  approvedBy  Int?
+  approvedAt  DateTime?
+  
+  meetings    Meeting[]
+  createdAt   DateTime @default(now())
+}
+
+model Room {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  capacity  Int
+  meetings  Meeting[]
+}
+
+model Meeting {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?
+  startTime   DateTime
+  endTime     DateTime
+  status      String   @default("PENDING")
+  
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  roomId      Int
+  room        Room     @relation(fields: [roomId], references: [id])
+  
+  createdAt   DateTime @default(now())
+}

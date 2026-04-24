@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+
+  database:
+    image: postgres:15
+    container_name: dee-database
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: amit2004
+      POSTGRES_DB: dee_meetings
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - dee-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-U", "postgres"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: dee-backend
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      DATABASE_URL: "postgresql://postgres:amit2004@database:5432/dee_meetings"
+      DIRECT_URL: "postgresql://postgres:amit2004@database:5432/dee_meetings"
+      JWT_SECRET: "supersecretkey"
+      EMAIL_USER: "amitchhotaray19@gmail.com"
+      EMAIL_PASS: "mgkqcxahlmacgdsd"
+      PORT: 5000
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - dee-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: "http://192.168.0.131:801/api"
+    container_name: dee-frontend
+    restart: always
+    ports:
+      - "801:80"
+    depends_on:
+      - backend
+    networks:
+      - dee-network
+
+volumes:
+  postgres_data:
+
+networks:
+  dee-network:
+    driver: bridge
