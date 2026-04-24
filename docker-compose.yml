@@ -1,30 +1,51 @@
 services:
   database:
+    image: postgres:15
     container_name: dee-database-p2
+    restart: always
     environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: amit2004
       POSTGRES_DB: dee_meetings_p2
+    volumes:
+      - postgres_data_p2:/var/lib/postgresql/data
     ports:
       - "5433:5432"
     networks:
       - dee-network-p2
 
   backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     container_name: dee-backend-p2
+    restart: always
     ports:
       - "5001:5000"
     environment:
       DATABASE_URL: "postgresql://postgres:amit2004@dee-database-p2:5432/dee_meetings_p2"
       DIRECT_URL: "postgresql://postgres:amit2004@dee-database-p2:5432/dee_meetings_p2"
+      JWT_SECRET: "supersecretkey"
+      EMAIL_USER: "amitchhotaray19@gmail.com"
+      EMAIL_PASS: "mgkqcxahlmacgdsd"
+      PORT: 5000
+    depends_on:
+      - database
     networks:
       - dee-network-p2
 
   frontend:
-    container_name: dee-frontend-p2
-    ports:
-      - "802:80"
     build:
+      context: ./frontend
+      dockerfile: Dockerfile
       args:
         VITE_API_URL: "http://192.168.0.131:802/api"
+    container_name: dee-frontend-p2
+    restart: always
+    ports:
+      - "802:80"
+    depends_on:
+      - backend
     networks:
       - dee-network-p2
 
