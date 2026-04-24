@@ -85,7 +85,7 @@ export default function Dashboard() {
           </div>
           <div className="px-5 py-2 bg-white rounded-2xl shadow-sm text-sm font-medium text-slate-700 flex items-center gap-2">
             <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-            4 Categories
+            3 Categories
           </div>
         </div>
 
