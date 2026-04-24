@@ -1,6 +1,6 @@
 import sc1 from "../assets/smallrooms.jpg";
 import sc2 from "../assets/smallconf2.jpg";
-import aud from "../assets/smallconference3.webp";
+import aud from "../assets/boardroom.jpg";
 import tr from "../assets/trainingroom.jpg";
 
 export const roomCategories = [
@@ -16,7 +16,7 @@ export const roomCategories = [
     name: "Board Room",
     count: 1,
     rooms: [
-      { id: 3, name: "Board Room-1", capacity: 20, image: aud },
+      { id: 3, name: "Board Room-1", capacity: 20, image: br },
     ]
   },
   {
