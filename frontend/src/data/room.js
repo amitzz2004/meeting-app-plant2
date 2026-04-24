@@ -1,6 +1,6 @@
 import sc1 from "../assets/smallrooms.jpg";
 import sc2 from "../assets/smallconf2.jpg";
-import aud from "../assets/auditorium.webp";
+import aud from "../assets/smallconference3.webp";
 import tr from "../assets/trainingroom.jpg";
 
 export const roomCategories = [
