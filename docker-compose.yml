@@ -21,7 +21,7 @@ services:
   frontend:
     container_name: dee-frontend-p2
     ports:
-      - "81:80"
+      - "802:80"
     build:
       args:
         VITE_API_URL: "http://192.168.0.131:81/api"
