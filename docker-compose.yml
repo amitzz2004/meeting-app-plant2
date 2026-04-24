@@ -24,7 +24,7 @@ services:
       - "802:80"
     build:
       args:
-        VITE_API_URL: "http://192.168.0.131:81/api"
+        VITE_API_URL: "http://192.168.0.131:802/api"
     networks:
       - dee-network-p2
 
