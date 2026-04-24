@@ -27,7 +27,7 @@ async function main() {
   const rooms = [
     { name: "Small Conference-1", capacity: 20 },
     { name: "Small Conference-2", capacity: 20 },
-    { name: "Auditorium-1", capacity: 100 },
+    { name: "Board Room-1", capacity: 20 },
     { name: "Training Room", capacity: 30 },
   ];
 
