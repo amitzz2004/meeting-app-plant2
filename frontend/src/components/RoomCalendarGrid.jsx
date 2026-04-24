@@ -695,7 +695,7 @@ export default function RoomCalendarGrid({ rooms }) {
             <div key={room.id} style={{ borderBottom: "0.5px solid #e5e5e5", borderRight: ri < rooms.length - 1 ? "0.5px solid #e5e5e5" : "none", padding: "10px 12px", background: "#fff", transition: "background 0.15s" }}
               onMouseEnter={(e) => (e.currentTarget.style.background = "#f8fbff")}
               onMouseLeave={(e) => (e.currentTarget.style.background = "#fff")}>
-              <div style={{ height: 80, borderRadius: 10, overflow: "hidden", marginBottom: 10 }}>
+              <div style={{ height: 120, borderRadius: 10, overflow: "hidden", marginBottom: 10 }}>
                 {room.image ? (
                   <img src={room.image} alt={room.name} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }} />
                 ) : (
