@@ -1,6 +1,7 @@
 import { prisma } from "../config/prisma";
 import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
+import { sendApprovalEmail } from "../utils/sendEmail";
 
 // ====================== GET ALL USERS ======================
 export const getAllUsers = async (req: Request, res: Response) => {
@@ -176,5 +177,69 @@ export const approveMeeting = async (req: Request, res: Response) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error approving meeting" });
+  }
+};
+export const getPendingUsers = async (req: Request, res: Response) => {
+  try {
+    const users = await prisma.user.findMany({
+      where: { status: "PENDING" },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        department: true,
+        createdAt: true,
+      },
+      orderBy: { createdAt: "desc" }
+    });
+    res.json(users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error fetching pending users" });
+  }
+};
+
+export const approveUser = async (req: Request, res: Response) => {
+  try {
+    const id = parseInt(req.params.id as string);
+    if (isNaN(id)) return res.status(400).json({ message: "Invalid user ID" });
+
+    const user = await prisma.user.findUnique({ where: { id } });
+    if (!user) return res.status(404).json({ message: "User not found" });
+    if (user.status !== "PENDING") {
+      return res.status(400).json({ message: "User is not pending" });
+    }
+
+    const updatedUser = await prisma.user.update({
+      where: { id },
+      data: { status: "APPROVED", approvedAt: new Date() }
+    });
+
+    await sendApprovalEmail(user.email, user.name);
+
+    res.json({
+      message: `✅ User "${user.name}" approved successfully`,
+      user: updatedUser
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error approving user" });
+  }
+};
+
+export const rejectUser = async (req: Request, res: Response) => {
+  try {
+    const id = parseInt(req.params.id as string);
+    if (isNaN(id)) return res.status(400).json({ message: "Invalid user ID" });
+
+    const user = await prisma.user.update({
+      where: { id },
+      data: { status: "REJECTED" }
+    });
+
+    res.json({ message: `❌ User "${user.name}" has been rejected` });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error rejecting user" });
   }
 };
