@@ -5,13 +5,15 @@ import RoomPage from "./pages/Roompage";
 import AdminDashboard from "./pages/Admindashboard";
 import UserManagement from "./pages/UserManagement";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Signup from "./pages/signup";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
-        {/* ✅ Signup route removed */}
+        {/* ✅ Signup route added */}
+        <Route path="/signup" element={<Signup />} />
 
         <Route path="/dashboard" element={
           <ProtectedRoute>

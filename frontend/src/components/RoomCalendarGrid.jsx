@@ -345,6 +345,10 @@ function EditModal({ meeting, onClose, onSave }) {
 
 function DraftModal({ draft, onClose, onBook }) {
   const [title, setTitle] = useState("");
+  const [employeeName, setEmployeeName] = useState("");
+  const [employeeId, setEmployeeId] = useState("");
+  const [department, setDepartment] = useState("");
+  const [requirements, setRequirements] = useState("");
   const [booking, setBooking] = useState(false);
   const defaultStart = draft.start;
   const defaultEnd = new Date(draft.start);
@@ -360,12 +364,18 @@ function DraftModal({ draft, onClose, onBook }) {
   };
   const startDate = parseTime(fromTime);
   const endDate = parseTime(tillTime);
-  const isValid = endDate > startDate && title.trim();
+  const isValid = endDate > startDate && title.trim() && employeeName.trim() && employeeId.trim();
+  
   const handleBook = async () => {
     if (!isValid) return;
     setBooking(true);
     try {
-      await onBook({ title, start: startDate, end: endDate, roomId: draft.roomId });
+      await onBook({ 
+        title: `${title} | ${employeeName} (${employeeId})${requirements ? ` | ${requirements}` : ""}`, 
+        start: startDate, 
+        end: endDate, 
+        roomId: draft.roomId 
+      });
       onClose();
     } catch {
       alert("Booking failed");
@@ -373,34 +383,84 @@ function DraftModal({ draft, onClose, onBook }) {
       setBooking(false);
     }
   };
+
   const durationMins = Math.round((endDate - startDate) / 60000);
   const durationLabel = durationMins <= 0 ? "" : durationMins < 60 ? `${durationMins} min` : durationMins % 60 === 0 ? `${durationMins / 60} hr` : `${Math.floor(durationMins / 60)}h ${durationMins % 60}m`;
 
+  const inputStyle = {
+    width: "100%", padding: "9px 12px", borderRadius: 10,
+    border: "1px solid #ddd", fontSize: 13, boxSizing: "border-box", outline: "none"
+  };
+  const labelStyle = {
+    fontSize: 11, fontWeight: 600, color: "#666", marginBottom: 6,
+    letterSpacing: 0.5, display: "block"
+  };
+
   return (
     <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.38)", backdropFilter: "blur(4px)", zIndex: 500, display: "flex", alignItems: "center", justifyContent: "center", padding: 16 }} onClick={onClose}>
-      <div onClick={(e) => e.stopPropagation()} style={{ background: "#fff", borderRadius: 16, padding: 24, width: 340, maxWidth: "100%", boxShadow: "0 20px 60px rgba(0,0,0,0.18)", animation: "rcg-modal-in 0.18s ease", position: "relative" }}>
+      <div onClick={(e) => e.stopPropagation()} style={{
+        background: "#fff", borderRadius: 16, padding: 24, width: 400,
+        maxWidth: "100%", boxShadow: "0 20px 60px rgba(0,0,0,0.18)",
+        animation: "rcg-modal-in 0.18s ease", position: "relative",
+        maxHeight: "90vh", overflowY: "auto"
+      }}>
         <button onClick={onClose} style={{ position: "absolute", top: 14, right: 14, background: "none", border: "none", fontSize: 18, color: "#bbb", cursor: "pointer", lineHeight: 1, padding: 0 }}>✕</button>
+        
         <div style={{ width: 40, height: 40, borderRadius: 10, background: "#EBF4FF", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, marginBottom: 14 }}>📅</div>
         <div style={{ fontSize: 16, fontWeight: 600, color: "#111", marginBottom: 2 }}>New Booking</div>
         <div style={{ fontSize: 12, color: "#999", marginBottom: 16 }}>{draft.roomName}</div>
-        <div style={{ background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 8, padding: "8px 12px", marginBottom: 14, fontSize: 11, color: "#92400e", display: "flex", alignItems: "center", gap: 6 }}>
+        
+        <div style={{ background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 8, padding: "8px 12px", marginBottom: 16, fontSize: 11, color: "#92400e", display: "flex", alignItems: "center", gap: 6 }}>
           ⏳ Your booking will require admin approval before it's confirmed
         </div>
+
+        {/* MEETING TITLE */}
         <div style={{ marginBottom: 14 }}>
-          <div style={{ fontSize: 11, fontWeight: 600, color: "#666", marginBottom: 6, letterSpacing: 0.5 }}>MEETING TITLE</div>
-          <input autoFocus value={title} onChange={(e) => setTitle(e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleBook()}
-            style={{ width: "100%", padding: "9px 12px", borderRadius: 10, border: "1px solid #ddd", fontSize: 13, boxSizing: "border-box", outline: "none" }}
+          <label style={labelStyle}>PURPOSE OF THE MEETING *</label>
+          <input autoFocus value={title} onChange={(e) => setTitle(e.target.value)}
+            style={inputStyle}
             onFocus={(e) => (e.currentTarget.style.border = "1px solid #378ADD")}
             onBlur={(e) => (e.currentTarget.style.border = "1px solid #ddd")}
-            placeholder="e.g. Team Standup" />
+            placeholder="e.g. Finance Meeting" />
         </div>
-        <div style={{ marginBottom: 16 }}>
+
+        {/* EMPLOYEE NAME + ID */}
+        <div style={{ display: "flex", gap: 10, marginBottom: 14 }}>
+          <div style={{ flex: 1 }}>
+            <label style={labelStyle}>EMPLOYEE NAME *</label>
+            <input value={employeeName} onChange={(e) => setEmployeeName(e.target.value)}
+              style={inputStyle}
+              onFocus={(e) => (e.currentTarget.style.border = "1px solid #378ADD")}
+              onBlur={(e) => (e.currentTarget.style.border = "1px solid #ddd")}
+              placeholder="e.g. Rahul" />
+          </div>
+          <div style={{ flex: 1 }}>
+            <label style={labelStyle}>EMPLOYEE ID *</label>
+            <input value={employeeId} onChange={(e) => setEmployeeId(e.target.value)}
+              style={inputStyle}
+              onFocus={(e) => (e.currentTarget.style.border = "1px solid #378ADD")}
+              onBlur={(e) => (e.currentTarget.style.border = "1px solid #ddd")}
+              placeholder="e.g. 0001" />
+          </div>
+          <div style={{ flex: 1 }}>
+            <label style={labelStyle}>DEPARTMENT *</label>
+            <input value={department} onChange={(e) => setDepartment(e.target.value)}
+              style={inputStyle}
+              onFocus={(e) => (e.currentTarget.style.border = "1px solid #378ADD")}
+              onBlur={(e) => (e.currentTarget.style.border = "1px solid #ddd")}
+              placeholder="e.g. CMD" />
+          </div>
+          
+        </div>
+
+        {/* TIME */}
+        <div style={{ marginBottom: 14 }}>
           <div style={{ fontSize: 11, fontWeight: 600, color: "#666", marginBottom: 8, letterSpacing: 0.5 }}>TIME</div>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: 10, color: "#aaa", marginBottom: 4 }}>FROM</div>
               <input type="time" value={fromTime} onChange={(e) => setFromTime(e.target.value)}
-                style={{ width: "100%", padding: "9px 10px", borderRadius: 10, border: "1px solid #ddd", fontSize: 13, boxSizing: "border-box", outline: "none", cursor: "pointer" }}
+                style={{ ...inputStyle, cursor: "pointer" }}
                 onFocus={(e) => (e.currentTarget.style.border = "1px solid #378ADD")}
                 onBlur={(e) => (e.currentTarget.style.border = "1px solid #ddd")} />
             </div>
@@ -408,19 +468,34 @@ function DraftModal({ draft, onClose, onBook }) {
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: 10, color: "#aaa", marginBottom: 4 }}>TILL</div>
               <input type="time" value={tillTime} onChange={(e) => setTillTime(e.target.value)}
-                style={{ width: "100%", padding: "9px 10px", borderRadius: 10, border: endDate <= startDate ? "1px solid #ef4444" : "1px solid #ddd", fontSize: 13, boxSizing: "border-box", outline: "none", cursor: "pointer" }}
+                style={{ ...inputStyle, cursor: "pointer", border: endDate <= startDate ? "1px solid #ef4444" : "1px solid #ddd" }}
                 onFocus={(e) => (e.currentTarget.style.border = "1px solid #378ADD")}
                 onBlur={(e) => (e.currentTarget.style.border = endDate <= startDate ? "1px solid #ef4444" : "1px solid #ddd")} />
             </div>
           </div>
           {endDate <= startDate && <div style={{ fontSize: 11, color: "#ef4444", marginTop: 6 }}>⚠ End time must be after start time</div>}
         </div>
+
+        {/* DURATION */}
         {endDate > startDate && (
-          <div style={{ background: "#f8fafc", borderRadius: 10, padding: "10px 14px", fontSize: 12, color: "#666", marginBottom: 16, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <div style={{ background: "#f8fafc", borderRadius: 10, padding: "10px 14px", fontSize: 12, color: "#666", marginBottom: 14, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <span>⏱ Duration</span>
             <span style={{ fontWeight: 600, color: "#111" }}>{durationLabel}</span>
           </div>
         )}
+
+        {/* REQUIREMENTS */}
+        <div style={{ marginBottom: 16 }}>
+          <label style={labelStyle}>REQUIREMENTS (OPTIONAL)</label>
+          <textarea value={requirements} onChange={(e) => setRequirements(e.target.value)}
+            rows={3}
+            style={{ ...inputStyle, resize: "none", fontFamily: "inherit" }}
+            onFocus={(e) => (e.currentTarget.style.border = "1px solid #378ADD")}
+            onBlur={(e) => (e.currentTarget.style.border = "1px solid #ddd")}
+            placeholder="" />
+        </div>
+
+        {/* BUTTONS */}
         <div style={{ display: "flex", gap: 8 }}>
           <button onClick={onClose} style={{ flex: 1, padding: "10px 0", borderRadius: 10, border: "0.5px solid #ddd", background: "#fff", fontSize: 13, cursor: "pointer", color: "#555" }}>Cancel</button>
           <button onClick={handleBook} disabled={booking || !isValid} style={{ flex: 2, padding: "10px 0", borderRadius: 10, border: "none", background: booking || !isValid ? "#a0c4e8" : "#378ADD", color: "#fff", fontSize: 13, fontWeight: 500, cursor: booking || !isValid ? "not-allowed" : "pointer" }}

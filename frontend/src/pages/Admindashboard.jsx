@@ -26,6 +26,7 @@ function formatDate(iso) {
 
 export default function AdminDashboard() {
   const [meetings, setMeetings] = useState([]);
+  const [users, setUsers] = useState([]); // ✅ pending users
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState("PENDING");
   const [lastUpdated, setLastUpdated] = useState(null);
@@ -42,8 +43,14 @@ export default function AdminDashboard() {
     try {
       const meetingUrl =
         tab === "PENDING" ? "/meetings/admin/pending" : "/meetings/admin/all";
-      const res = await API.get(meetingUrl);
-      setMeetings(res.data);
+
+      const [meetingRes, userRes] = await Promise.all([
+        API.get(meetingUrl),
+        API.get("/admin/pending-users"), // ✅ fetch pending users
+      ]);
+
+      setMeetings(meetingRes.data);
+      setUsers(userRes.data);
       setLastUpdated(new Date());
     } catch (err) {
       console.error(err);
@@ -83,6 +90,25 @@ export default function AdminDashboard() {
       await fetchData();
     } catch {
       alert("Failed to delete");
+    }
+  };
+
+  // ✅ User approval handlers
+  const handleApproveUser = async (id) => {
+    try {
+      await API.post(`/admin/approve-user/${id}`);
+      await fetchData();
+    } catch {
+      alert("Failed to approve user");
+    }
+  };
+
+  const handleRejectUser = async (id) => {
+    try {
+      await API.post(`/admin/reject-user/${id}`);
+      await fetchData();
+    } catch {
+      alert("Failed to reject user");
     }
   };
 
@@ -130,26 +156,19 @@ export default function AdminDashboard() {
 
       {/* HEADER */}
       <div style={{ background: "#0b2c4a", color: "#fff", padding: "14px 32px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-
-        {/* LEFT - Logo + Title */}
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <img
-            src={deeLogo}
-            alt="DEE Logo"
-            style={{ width: 44, height: 44, objectFit: "contain" }}
-          />
+          <img src={deeLogo} alt="DEE Logo" style={{ width: 44, height: 44, objectFit: "contain" }} />
           <div>
-            <div style={{ fontSize: 15, fontWeight: 700, color: "#4333a5", letterSpacing: 1 }}>
+            <div style={{ fontSize: 15, fontWeight: 700, letterSpacing: 1 }}>
               <span style={{ color: "red" }}>DEE</span>
               <span style={{ color: "#4333a5" }}> PIPING SYSTEM</span>
             </div>
             <div style={{ fontSize: 11, color: "rgba(255,255,255,0.4)" }}>
-              Inhouse Meeting Room Booking Platform 
+              Inhouse Meeting Room Booking Platform
             </div>
           </div>
         </div>
 
-        {/* RIGHT - Buttons */}
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           {lastUpdated && (
             <span style={{ fontSize: 11, color: "rgba(255,255,255,0.25)" }}>
@@ -157,43 +176,72 @@ export default function AdminDashboard() {
             </span>
           )}
           <button onClick={fetchData}
-            style={{
-              background: "rgba(255,255,255,0.08)", color: "#fff",
-              border: "0.5px solid rgba(255,255,255,0.15)",
-              padding: "8px 16px", borderRadius: 8, cursor: "pointer", fontSize: 13
-            }}>
+            style={{ background: "rgba(255,255,255,0.08)", color: "#fff", border: "0.5px solid rgba(255,255,255,0.15)", padding: "8px 16px", borderRadius: 8, cursor: "pointer", fontSize: 13 }}>
             ↻ Refresh
           </button>
           <button onClick={() => navigate("/admin/users")}
-            style={{
-              background: "#4c1d95", color: "#fff",
-              border: "0.5px solid #7c3aed",
-              padding: "8px 16px", borderRadius: 8, cursor: "pointer",
-              fontSize: 13, fontWeight: 500,
-              display: "flex", alignItems: "center", gap: 6
-            }}>
+            style={{ background: "#4c1d95", color: "#fff", border: "0.5px solid #7c3aed", padding: "8px 16px", borderRadius: 8, cursor: "pointer", fontSize: 13, fontWeight: 500, display: "flex", alignItems: "center", gap: 6 }}>
             👥 Manage Users
           </button>
           <button onClick={() => navigate("/dashboard")}
-            style={{
-              background: "rgba(255,255,255,0.08)", color: "#fff",
-              border: "0.5px solid rgba(255,255,255,0.15)",
-              padding: "8px 16px", borderRadius: 8, cursor: "pointer", fontSize: 13
-            }}>
+            style={{ background: "rgba(255,255,255,0.08)", color: "#fff", border: "0.5px solid rgba(255,255,255,0.15)", padding: "8px 16px", borderRadius: 8, cursor: "pointer", fontSize: 13 }}>
             ← Back
           </button>
           <button onClick={handleLogout}
-            style={{
-              background: "rgba(255,255,255,0.08)", color: "#fff",
-              border: "0.5px solid rgba(255,255,255,0.15)",
-              padding: "8px 16px", borderRadius: 8, cursor: "pointer", fontSize: 13
-            }}>
+            style={{ background: "rgba(255,255,255,0.08)", color: "#fff", border: "0.5px solid rgba(255,255,255,0.15)", padding: "8px 16px", borderRadius: 8, cursor: "pointer", fontSize: 13 }}>
             Logout →
           </button>
         </div>
       </div>
 
       <div style={{ maxWidth: 1100, margin: "0 auto", padding: "32px 24px" }}>
+
+        {/* ================= PENDING USER APPROVALS ================= */}
+        <div style={cardStyle}>
+          <h2 style={{ marginBottom: 16, fontSize: 16, fontWeight: 600, color: "#0f172a" }}>
+            👤 Pending User Approvals
+            {users.length > 0 && (
+              <span style={{ marginLeft: 10, background: "#fef9c3", color: "#ca8a04", fontSize: 12, padding: "2px 10px", borderRadius: 20 }}>
+                {users.length} pending
+              </span>
+            )}
+          </h2>
+          {users.length === 0 ? (
+            <p style={{ color: "#94a3b8", fontSize: 14 }}>✅ No pending user approvals</p>
+          ) : (
+            <table style={tableStyle}>
+              <thead>
+                <tr>
+                  <th style={thStyle}>Name</th>
+                  <th style={thStyle}>Email</th>
+                  <th style={thStyle}>Department</th>
+                  <th style={thStyle}>Requested</th>
+                  <th style={thStyle}>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {users.map((u) => (
+                  <tr key={u.id}>
+                    <td style={tdStyle}>{u.name}</td>
+                    <td style={tdStyle}>{u.email}</td>
+                    <td style={tdStyle}>{u.department || "—"}</td>
+                    <td style={tdStyle}>{formatDate(u.createdAt)}</td>
+                    <td style={tdStyle}>
+                      <button onClick={() => handleApproveUser(u.id)}
+                        style={{ background: "#dcfce7", color: "#16a34a", border: "none", padding: "6px 14px", borderRadius: 8, cursor: "pointer", marginRight: 8, fontWeight: 500 }}>
+                        ✓ Approve
+                      </button>
+                      <button onClick={() => handleRejectUser(u.id)}
+                        style={{ background: "#fee2e2", color: "#dc2626", border: "none", padding: "6px 14px", borderRadius: 8, cursor: "pointer", fontWeight: 500 }}>
+                        ✗ Reject
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
 
         {/* ================= MEETING APPROVAL ================= */}
         <div style={cardStyle}>

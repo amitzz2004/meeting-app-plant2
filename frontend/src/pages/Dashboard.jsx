@@ -81,7 +81,12 @@ export default function Dashboard() {
       <div className="max-w-7xl mx-auto p-8 w-full">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h2 className="text-3xl font-bold text-slate-900">Book a Meeting Room</h2>
+            <h2 className="text-lg font-semibold tracking-wide text-slate-800 flex items-center gap-2">
+              <span className="text-[#0EA5E9]"></span>
+              Please proceed to select your meeting room
+              <span className="text-[#0EA5E9]"></span>
+            </h2>
+            
           </div>
           <div className="px-5 py-2 bg-white rounded-2xl shadow-sm text-sm font-medium text-slate-700 flex items-center gap-2">
             <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />

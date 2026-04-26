@@ -63,10 +63,11 @@ export default function RoomPage() {
 
         {/* Room category info */}
         <div className="mb-3 flex items-center gap-2">
-          <h2 className="text-lg font-semibold text-slate-800">{category.name}</h2>
-          <span className="text-xs text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">
-            {category.count} Rooms
-          </span>
+          
+          <p className="text-base text-slate-600 mt-1 flex items-center gap-1 font-bold">
+           <span className="text-[#0EA5E9]"></span>
+           Kindly select a suitable meeting slot and confirm
+           </p>
         </div>
 
         {/* Calendar grid */}
