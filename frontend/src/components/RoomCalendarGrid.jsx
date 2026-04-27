@@ -455,7 +455,7 @@ function DraftModal({ draft, onClose, onBook }) {
 
         {/* TIME */}
         <div style={{ marginBottom: 14 }}>
-          <div style={{ fontSize: 11, fontWeight: 600, color: "#666", marginBottom: 8, letterSpacing: 0.5 }}>TIME</div>
+          <div style={{ fontSize: 11, fontWeight: 600, color: "#666", marginBottom: 8, letterSpacing: 0.5 }}>Time</div>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: 10, color: "#aaa", marginBottom: 4 }}>FROM</div>
