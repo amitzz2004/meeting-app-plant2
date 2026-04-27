@@ -8,14 +8,14 @@ async function main() {
   const hashedPassword = await bcrypt.hash("Admin@123", 10);
 
   const admin = await prisma.user.upsert({
-    where: { email: "admin@deepiping.com" },
+    where: { email: "amit.chhotaray@deepiping.com" },
     update: {
       role: "ADMIN",
       status: "APPROVED",
     },
     create: {
-      name: "Admin",
-      email: "admin@deepiping.com",
+      name: "Amit(Admin)",
+      email: "amit.chhotaray@deepiping.com",
       password: hashedPassword,
       role: "ADMIN",
       status: "APPROVED",
@@ -23,14 +23,14 @@ async function main() {
   });
 
   console.log("✅ Admin user created:", admin.email);
-  console.log("📧 Email: admin@deepiping.com");
+  console.log("📧 Email: amit.chhotaray@deepiping.com");
   console.log("🔑 Password: Admin@123");
 
   // ✅ Seed Plant 2 rooms
   const rooms = [
     { name: "Small Conference-1", capacity: 20 },
     { name: "Small Conference-2", capacity: 20 },
-    { name: "Board Room-1", capacity: 20 },
+    { name: "Board Room", capacity: 20 },
     { name: "Training Room", capacity: 30 },
   ];
 
