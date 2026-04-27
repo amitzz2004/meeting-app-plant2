@@ -364,14 +364,14 @@ function DraftModal({ draft, onClose, onBook }) {
   };
   const startDate = parseTime(fromTime);
   const endDate = parseTime(tillTime);
-  const isValid = endDate > startDate && title.trim() && employeeName.trim() && employeeId.trim();
+  const isValid = endDate > startDate && title.trim() && employeeName.trim() && employeeId.trim() && department.trim();
   
   const handleBook = async () => {
     if (!isValid) return;
     setBooking(true);
     try {
       await onBook({ 
-        title: `${title} | ${employeeName} (${employeeId})${requirements ? ` | ${requirements}` : ""}`, 
+        title: `${title} | ${employeeName} (${employeeId}) | ${department || "No Dept"}${requirements ? ` | ${requirements}` : ""}`,
         start: startDate, 
         end: endDate, 
         roomId: draft.roomId 
