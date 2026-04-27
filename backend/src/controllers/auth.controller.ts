@@ -14,6 +14,15 @@ export const register = async (req: Request, res: Response) => {
       return res.status(400).json({ message: "Name, email and password are required" });
     }
 
+    // ✅ Allow only company email domains
+    const allowedDomains = ['deepiping.com', 'deepiping.co.th'];
+    const emailDomain = email.split('@')[1]?.toLowerCase();
+    if (!emailDomain || !allowedDomains.includes(emailDomain)) {
+      return res.status(400).json({
+        message: "Only company email addresses are allowed (@deepiping.com)"
+      });
+    }
+
     const existingUser = await prisma.user.findUnique({ where: { email } });
     if (existingUser) {
       return res.status(400).json({ message: "User already exists" });
