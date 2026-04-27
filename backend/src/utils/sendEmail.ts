@@ -134,7 +134,7 @@ export const sendBookingNotificationToAdmin = async (
                   </tr>
                   <tr>
                     <td style="background:#f59e0b; padding: 18px 48px;">
-                      <p style="margin:0; color:#ffffff; font-size:16px; font-weight:600;">📅 New Meeting Booking Request</p>
+                      <p style="margin:0; color:#ffffff; font-size:16px; font-weight:600;"> New Meeting Booking Request</p>
                     </td>
                   </tr>
                   <tr>
