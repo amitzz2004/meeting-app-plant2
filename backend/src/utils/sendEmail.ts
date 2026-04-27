@@ -77,7 +77,7 @@ export const sendApprovalEmail = async (email: string, name: string) => {
                     <td style="background:#ffffff; padding: 48px;">
 
                       <p style="margin:0 0 8px; color:#94a3b8; font-size:13px; text-transform:uppercase; letter-spacing:1px; font-weight:600;">Hello,</p>
-                      <h2 style="margin:0 0 24px; color:#0b2c4a; font-size:26px; font-weight:700;">${name} 👋</h2>
+                      <h2 style="margin:0 0 24px; color:#0b2c4a; font-size:26px; font-weight:700;">${name} </h2>
 
                       <p style="margin:0 0 20px; color:#475569; font-size:15px; line-height:1.8;">
                         We're excited to let you know that your account registration request for the 
@@ -141,19 +141,19 @@ export const sendApprovalEmail = async (email: string, name: string) => {
                             <table width="100%" cellpadding="0" cellspacing="0">
                               <tr>
                                 <td style="padding:10px 0; border-bottom:1px solid #f1f5f9;">
-                                  <span style="color:#0EA5E9; font-size:16px; margin-right:12px;">📅</span>
+                                  <span style="color:#0EA5E9; font-size:16px; margin-right:12px;"></span>
                                   <span style="color:#475569; font-size:14px;">Book meeting rooms instantly</span>
                                 </td>
                               </tr>
                               <tr>
                                 <td style="padding:10px 0; border-bottom:1px solid #f1f5f9;">
-                                  <span style="color:#0EA5E9; font-size:16px; margin-right:12px;">🏢</span>
+                                  <span style="color:#0EA5E9; font-size:16px; margin-right:12px;"></span>
                                   <span style="color:#475569; font-size:14px;">Browse available rooms and capacities</span>
                                 </td>
                               </tr>
                               <tr>
                                 <td style="padding:10px 0;">
-                                  <span style="color:#0EA5E9; font-size:16px; margin-right:12px;">📋</span>
+                                  <span style="color:#0EA5E9; font-size:16px; margin-right:12px;"></span>
                                   <span style="color:#475569; font-size:14px;">Manage and track your bookings</span>
                                 </td>
                               </tr>
