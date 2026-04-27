@@ -64,6 +64,7 @@ export const updateMeeting = async (req: AuthRequest, res: Response) => {
 export const createMeeting = async (req: AuthRequest, res: Response) => {
   try {
     const { title, startTime, endTime, roomId } = req.body;
+    console.log("🔥 BOOKING BODY:", req.body); // ← debug log
 
     if (!req.user)
       return res.status(401).json({ message: "Unauthorized" });
@@ -73,6 +74,7 @@ export const createMeeting = async (req: AuthRequest, res: Response) => {
     }
 
     const numericRoomId = Number(roomId);
+    console.log("🔥 NUMERIC ROOM ID:", numericRoomId); // ← debug log
 
     // Check overlap only among APPROVED meetings
     const conflict = await prisma.meeting.findFirst({
@@ -272,7 +274,6 @@ export const getAllRoomsMeetings = async (req: AuthRequest, res: Response) => {
         startTime: { gte: start, lte: end },
         OR: [
           { status: "APPROVED" },
-          // only show pending meetings to the user who created them
           { status: "PENDING", userId: userId },
         ],
       },
