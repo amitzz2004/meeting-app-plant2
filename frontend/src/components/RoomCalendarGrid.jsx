@@ -421,7 +421,7 @@ function DraftModal({ draft, onClose, onBook }) {
             style={inputStyle}
             onFocus={(e) => (e.currentTarget.style.border = "1px solid #378ADD")}
             onBlur={(e) => (e.currentTarget.style.border = "1px solid #ddd")}
-            placeholder="e.g. Finance Meeting" />
+            placeholder="" />
         </div>
 
         {/* EMPLOYEE NAME + ID */}
