@@ -71,7 +71,7 @@ export default function Signup() {
           <input
             type="email"
             value={email}
-            placeholder="Email"
+            placeholder="Company Email ID"
             onChange={(e) => setEmail(e.target.value)}
             className="w-full px-4 py-3 mb-4 border border-gray-200 rounded-xl text-sm
                        text-gray-800 placeholder-gray-400 bg-white
@@ -83,7 +83,7 @@ export default function Signup() {
           <input
             type="password"
             value={password}
-            placeholder="Password"
+            placeholder="Password-same as your company email"
             onChange={(e) => setPassword(e.target.value)}
             className="w-full px-4 py-3 mb-6 border border-gray-200 rounded-xl text-sm
                        text-gray-800 placeholder-gray-400 bg-white
