@@ -416,7 +416,7 @@ function DraftModal({ draft, onClose, onBook }) {
 
         {/* MEETING TITLE */}
         <div style={{ marginBottom: 14 }}>
-          <label style={labelStyle}>PURPOSE OF THE MEETING *</label>
+          <label style={labelStyle}>Purpose of the meeting *</label>
           <input autoFocus value={title} onChange={(e) => setTitle(e.target.value)}
             style={inputStyle}
             onFocus={(e) => (e.currentTarget.style.border = "1px solid #378ADD")}
@@ -427,28 +427,28 @@ function DraftModal({ draft, onClose, onBook }) {
         {/* EMPLOYEE NAME + ID */}
         <div style={{ display: "flex", gap: 10, marginBottom: 14 }}>
           <div style={{ flex: 1 }}>
-            <label style={labelStyle}>EMPLOYEE NAME *</label>
+            <label style={labelStyle}>Employee Name *</label>
             <input value={employeeName} onChange={(e) => setEmployeeName(e.target.value)}
               style={inputStyle}
               onFocus={(e) => (e.currentTarget.style.border = "1px solid #378ADD")}
               onBlur={(e) => (e.currentTarget.style.border = "1px solid #ddd")}
-              placeholder="e.g. Rahul" />
+              placeholder="" />
           </div>
           <div style={{ flex: 1 }}>
-            <label style={labelStyle}>EMPLOYEE ID *</label>
+            <label style={labelStyle}>Employee ID *</label>
             <input value={employeeId} onChange={(e) => setEmployeeId(e.target.value)}
               style={inputStyle}
               onFocus={(e) => (e.currentTarget.style.border = "1px solid #378ADD")}
               onBlur={(e) => (e.currentTarget.style.border = "1px solid #ddd")}
-              placeholder="e.g. 0001" />
+              placeholder="" />
           </div>
           <div style={{ flex: 1 }}>
-            <label style={labelStyle}>DEPARTMENT *</label>
+            <label style={labelStyle}>Department *</label>
             <input value={department} onChange={(e) => setDepartment(e.target.value)}
               style={inputStyle}
               onFocus={(e) => (e.currentTarget.style.border = "1px solid #378ADD")}
               onBlur={(e) => (e.currentTarget.style.border = "1px solid #ddd")}
-              placeholder="e.g. CMD" />
+              placeholder="" />
           </div>
           
         </div>
@@ -486,7 +486,7 @@ function DraftModal({ draft, onClose, onBook }) {
 
         {/* REQUIREMENTS */}
         <div style={{ marginBottom: 16 }}>
-          <label style={labelStyle}>REQUIREMENTS (OPTIONAL)</label>
+          <label style={labelStyle}>Requirements (Optional)</label>
           <textarea value={requirements} onChange={(e) => setRequirements(e.target.value)}
             rows={3}
             style={{ ...inputStyle, resize: "none", fontFamily: "inherit" }}
