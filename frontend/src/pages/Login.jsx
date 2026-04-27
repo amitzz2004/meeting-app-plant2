@@ -57,7 +57,7 @@ export default function Login() {
           <input
             type="email"
             value={email}
-            placeholder="Email"
+            placeholder="Company Email ID"
             onChange={(e) => setEmail(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && login()}
             className="w-full px-4 py-3 mb-4 border border-gray-200 rounded-xl text-sm
@@ -71,7 +71,7 @@ export default function Login() {
             <input
               type={showPassword ? "text" : "password"}
               value={password}
-              placeholder="Password"
+              placeholder="Password:Same as your Company Email ID"
               onChange={(e) => setPassword(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && login()}
               className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm
