@@ -1,6 +1,11 @@
 import { prisma } from "../config/prisma";
 import { Request, Response } from "express";
 import { AuthRequest } from "../types/express";
+import {
+  sendBookingNotificationToAdmin,
+  sendMeetingApprovedEmail,
+  sendMeetingRejectedEmail,
+} from "../utils/sendEmail";
 
 // ✅ GET MEETINGS BY ROOM (filtered by date, only APPROVED)
 export const getMeetingsByRoom = async (req: Request, res: Response) => {
@@ -64,7 +69,7 @@ export const updateMeeting = async (req: AuthRequest, res: Response) => {
 export const createMeeting = async (req: AuthRequest, res: Response) => {
   try {
     const { title, startTime, endTime, roomId } = req.body;
-    console.log("🔥 BOOKING BODY:", req.body); // ← debug log
+    console.log("🔥 BOOKING BODY:", req.body);
 
     if (!req.user)
       return res.status(401).json({ message: "Unauthorized" });
@@ -74,7 +79,7 @@ export const createMeeting = async (req: AuthRequest, res: Response) => {
     }
 
     const numericRoomId = Number(roomId);
-    console.log("🔥 NUMERIC ROOM ID:", numericRoomId); // ← debug log
+    console.log("🔥 NUMERIC ROOM ID:", numericRoomId);
 
     // Check overlap only among APPROVED meetings
     const conflict = await prisma.meeting.findFirst({
@@ -106,6 +111,27 @@ export const createMeeting = async (req: AuthRequest, res: Response) => {
         status: "PENDING",
       },
     });
+
+    // Fetch room name and all admins, then send emails
+    const room = await prisma.room.findUnique({ where: { id: numericRoomId } });
+    const admins = await prisma.user.findMany({
+      where: { role: "ADMIN" },
+      select: { email: true },
+    });
+
+    await Promise.all(
+      admins.map(admin =>
+        sendBookingNotificationToAdmin(
+          admin.email,
+          req.user!.name,
+          req.user!.email,
+          room?.name || "Unknown Room",
+          title,
+          new Date(startTime),
+          new Date(endTime)
+        )
+      )
+    );
 
     res.status(201).json(meeting);
   } catch (error) {
@@ -206,8 +232,19 @@ export const approveMeeting = async (req: AuthRequest, res: Response) => {
       include: { room: true, user: true },
     });
 
+    // Send approval email to user
+    await sendMeetingApprovedEmail(
+      meeting.user.email,
+      meeting.user.name,
+      meeting.room.name,
+      meeting.title,
+      meeting.startTime,
+      meeting.endTime
+    );
+
     res.json(meeting);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: "Error approving meeting" });
   }
 };
@@ -225,8 +262,19 @@ export const rejectMeeting = async (req: AuthRequest, res: Response) => {
       include: { room: true, user: true },
     });
 
+    // Send rejection email to user
+    await sendMeetingRejectedEmail(
+      meeting.user.email,
+      meeting.user.name,
+      meeting.room.name,
+      meeting.title,
+      meeting.startTime,
+      meeting.endTime
+    );
+
     res.json(meeting);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: "Error rejecting meeting" });
   }
 };
