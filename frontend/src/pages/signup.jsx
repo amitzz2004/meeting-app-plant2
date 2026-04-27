@@ -35,8 +35,10 @@ export default function Signup() {
 
       {/* Header - Same as Login */}
       <div className="mt-4 bg-[#0b2c4a] text-white text-center py-4 shadow-md">
-        <h1 className="text-2x2 tracking-wide font-semibold text-[#0EA5E9]">
-          DEE PIPING SYSTEM
+        <h1 className="text-2x2 tracking-wide font-semibold text-[#4333a5]">
+          <span className="text-red-600">DEE</span>{" "}
+          <span className="text-[#4333a5]">PIPING SYSTEM</span>
+          
         </h1>
         <p className="text-s text-gray-300 font-bold mt-1">
           Inhouse Meeting Room Booking Platform
@@ -83,7 +85,7 @@ export default function Signup() {
           <input
             type="password"
             value={password}
-            placeholder="Password-same as your company email"
+            placeholder="Password:Same as your Company Email ID"
             onChange={(e) => setPassword(e.target.value)}
             className="w-full px-4 py-3 mb-6 border border-gray-200 rounded-xl text-sm
                        text-gray-800 placeholder-gray-400 bg-white
