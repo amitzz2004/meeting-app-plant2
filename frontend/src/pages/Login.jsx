@@ -60,21 +60,21 @@ export default function Login() {
             placeholder="Company Email ID"
             onChange={(e) => setEmail(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && login()}
-            className="w-full px-4 py-3 mb-4 border border-gray-200 rounded-xl text-sm
+            className="w-full px-4 py-3 mb-4 border border-gray-200 rounded-xl text-xs
                        text-gray-800 placeholder-gray-400 bg-white
                        focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent
                        transition"
           />
 
           {/* Password */}
-          <div className="relative mb-4">
+          <div className="relative mb-6">
             <input
               type={showPassword ? "text" : "password"}
               value={password}
               placeholder="Password:Same as your Company Email ID"
               onChange={(e) => setPassword(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && login()}
-              className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm
+              className="w-full px-4 py-3 border border-gray-200 rounded-xl text-xs
                          text-gray-800 placeholder-gray-400 bg-white pr-10
                          focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent
                          transition"
