@@ -106,9 +106,9 @@ export const sendBookingNotificationToAdmin = async (
   endTime: Date
 ) => {
   try {
-    const dateStr = startTime.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
-    const fromTime = startTime.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
-    const tillTime = endTime.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
+    const dateStr = startTime.toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata', day: 'numeric', month: 'long', year: 'numeric' });
+    const fromTime = startTime.toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', hour12: true });
+    const tillTime = endTime.toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', hour12: true });
 
     const mailOptions = {
       from: `"DEE Piping System" <${process.env.EMAIL_USER}>`,
