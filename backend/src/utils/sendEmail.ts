@@ -166,7 +166,7 @@ export const sendApprovalEmail = async (email: string, name: string) => {
                       <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:32px;">
                         <tr>
                           <td align="center">
-                            <a href="https://deemeeting.netlify.app/"
+                            <a href="http://deemeetingsplant2.deepiping.com:802/"
                                style="display:inline-block; background:#0b2c4a; color:#ffffff; 
                                       padding:16px 48px; border-radius:8px; font-size:15px; 
                                       font-weight:600; text-decoration:none; letter-spacing:0.5px;">
