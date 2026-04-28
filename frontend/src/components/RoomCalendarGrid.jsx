@@ -442,7 +442,11 @@ function DraftModal({ draft, onClose, onBook }) {
           </div>
           <div style={{ flex: 1 }}>
             <label style={labelStyle}>Employee ID *</label>
-            <input value={employeeId} onChange={(e) => setEmployeeId(e.target.value)}
+            <input
+             value={employeeId} onChange={(e) => {
+              const val = e.target.value;
+               if (/^\d*$/.test(val)) setEmployeeId(val);
+             }}
               style={inputStyle}
               onFocus={(e) => (e.currentTarget.style.border = "1px solid #378ADD")}
               onBlur={(e) => (e.currentTarget.style.border = "1px solid #ddd")}
