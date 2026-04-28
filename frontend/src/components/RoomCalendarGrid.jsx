@@ -364,7 +364,13 @@ function DraftModal({ draft, onClose, onBook }) {
   };
   const startDate = parseTime(fromTime);
   const endDate = parseTime(tillTime);
-  const isValid = endDate > startDate && title.trim() && employeeName.trim() && employeeId.trim() && department.trim();
+  const now = new Date();
+  const isValid = endDate > startDate &&
+                  startDate >= now &&
+                  title.trim() &&
+                  employeeName.trim() &&
+                  employeeId.trim() &&
+                  department.trim();
   
   const handleBook = async () => {
     if (!isValid) return;
@@ -474,6 +480,7 @@ function DraftModal({ draft, onClose, onBook }) {
             </div>
           </div>
           {endDate <= startDate && <div style={{ fontSize: 11, color: "#ef4444", marginTop: 6 }}>⚠ End time must be after start time</div>}
+          {startDate < now && endDate > startDate && <div style={{ fontSize: 11, color: "#ef4444", marginTop: 6 }}>⚠ Cannot book a meeting in the past</div>}
         </div>
 
         {/* DURATION */}
