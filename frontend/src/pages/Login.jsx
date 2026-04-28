@@ -43,7 +43,7 @@ export default function Login() {
         <div className="bg-white shadow-md w-full max-w-sm p-8">
 
           <h2 className="text-2xl font-bold text-gray-900 text-center mb-1">Login</h2>
-          <p className="text-sm text-gray-500 text-center mb-6">Enter your credentials to continue</p>
+          <p className="text-xs text-gray-500 text-center mb-6">Enter your credentials to continue</p>
 
 
           {/* ERROR MESSAGE */}
@@ -108,11 +108,11 @@ export default function Login() {
           </button>
 
           {/* Contact admin note */}
-          <p className="text-sm text-center text-gray-400 mt-5">
+          <p className="text-xs text-center text-gray-400 mt-5">
             Contact your administrator to get access
           </p>
           {/* Signup link */}
-          <p className="text-sm text-center text-gray-500 mt-5">
+          <p className="text-xs text-center text-gray-500 mt-5">
             Don't have an account?{" "}
              <span
              className="text-blue-500 hover:underline cursor-pointer font-medium"
