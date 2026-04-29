@@ -8,15 +8,15 @@ export const roomCategories = [
     name: "Small Conference Rooms",
     count: 2,
     rooms: [
-      { id: 1, name: "Small Conference-1", capacity: 20, image: sc1 },
-      { id: 2, name: "Small Conference-2", capacity: 20, image: sc2 },
+      { id: 1, name: "Small Conference-1", capacity: 10, image: sc1 },
+      { id: 2, name: "Small Conference-2", capacity: 10, image: sc2 },
     ]
   },
   {
     name: "Board Room",
     count: 1,
     rooms: [
-      { id: 3, name: "Board Room-1", capacity: 20, image: aud },
+      { id: 3, name: "Board Room-1", capacity: 25, image: aud },
     ]
   },
   {
