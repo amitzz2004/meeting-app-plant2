@@ -53,7 +53,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-        VITE_API_URL: "http://deemeetingsplant2.deepiping.com:5001/api"
+        VITE_API_URL: "http://deemeetingsplant2.deepiping.com:802/api"
     container_name: dee-frontend-p2
     restart: always
     ports:
