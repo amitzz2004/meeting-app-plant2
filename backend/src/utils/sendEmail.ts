@@ -89,9 +89,9 @@ export const sendApprovalEmail = async (email: string, name: string) => {
       `
     };
     await transporter.sendMail(mailOptions);
-    console.log(`✅ Approval email sent to ${email}`);
+    console.log(` Approval email sent to ${email}`);
   } catch (error) {
-    console.error("❌ Failed to send email:", error);
+    console.error(" Failed to send email:", error);
   }
 };
 
