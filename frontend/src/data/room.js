@@ -1,6 +1,6 @@
-import sc1 from "../assets/conference1dee.jpg";
-import sc2 from "../assets/conferenceroom2dee.jpg";
-import aud from "../assets/boardroomdee.jpg";
+import sc1 from "../assets/Conference01Plant02.jpg.jpeg";
+import sc2 from "../assets/Conference02Plant02.jpg.jpeg";
+import aud from "../assets/BoardRoomPlant02.jpg.jpeg";
 import tr from "../assets/trainingroomdee.jpg";
 
 export const roomCategories = [
