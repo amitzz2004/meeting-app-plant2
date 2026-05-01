@@ -57,7 +57,7 @@ export const sendApprovalEmail = async (email: string, name: string) => {
                       <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:32px;">
                         <tr>
                           <td align="center">
-                            <a href="http://deemeetingsplant2.deepiping.com:802/"
+                            <a href="https://deemeetingsplant2.deepiping.com/"
                                style="display:inline-block; background:#0b2c4a; color:#ffffff; 
                                       padding:16px 48px; border-radius:8px; font-size:15px; 
                                       font-weight:600; text-decoration:none;">
@@ -198,7 +198,7 @@ export const sendBookingNotificationToAdmin = async (
                       <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:32px;">
                         <tr>
                           <td align="center">
-                            <a href="http://deemeetingsplant2.deepiping.com:802/"
+                            <a href="https://deemeetingsplant2.deepiping.com/"
                                style="display:inline-block; background:#0b2c4a; color:#ffffff; 
                                       padding:16px 48px; border-radius:8px; font-size:15px; 
                                       font-weight:600; text-decoration:none;">
@@ -331,7 +331,7 @@ export const sendMeetingApprovedEmail = async (
                       <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:32px;">
                         <tr>
                           <td align="center">
-                            <a href="http://deemeetingsplant2.deepiping.com:802/"
+                            <a href="https://deemeetingsplant2.deepiping.com/"
                                style="display:inline-block; background:#0b2c4a; color:#ffffff; 
                                       padding:16px 48px; border-radius:8px; font-size:15px; 
                                       font-weight:600; text-decoration:none;">
@@ -465,7 +465,7 @@ export const sendMeetingRejectedEmail = async (
                       <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:32px;">
                         <tr>
                           <td align="center">
-                            <a href="http://deemeetingsplant2.deepiping.com:802/"
+                            <a href="https://deemeetingsplant2.deepiping.com/"
                                style="display:inline-block; background:#0b2c4a; color:#ffffff; 
                                       padding:16px 48px; border-radius:8px; font-size:15px; 
                                       font-weight:600; text-decoration:none;">
