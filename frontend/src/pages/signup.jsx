@@ -23,8 +23,14 @@ export default function Signup() {
       alert("Signup successful!");
       navigate("/"); // Better than window.location
     } catch (err) {
-      console.error(err);
-      alert(err.response?.data?.message || "Signup failed. Please try again.");
+      console.error("Full error:", err);
+      console.error("Response:", err.response);
+      console.error("Data:", err.response?.data);
+      const message = err?.response?.data?.message
+        || err?.message
+        || "Signup failed. Please try again.";
+      alert(message);
+      
     } finally {
       setLoading(false);
     }
