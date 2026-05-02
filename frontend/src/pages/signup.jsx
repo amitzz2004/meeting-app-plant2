@@ -24,7 +24,7 @@ export default function Signup() {
       navigate("/"); // Better than window.location
     } catch (err) {
       console.error(err);
-      alert("Signup failed. Please try again.");
+      alert(err.response?.data?.message || "Signup failed. Please try again.");
     } finally {
       setLoading(false);
     }
