@@ -45,7 +45,6 @@ export default function Login() {
           <h2 className="text-2xl font-bold text-gray-900 text-center mb-1">Login</h2>
           <p className="text-xs text-gray-500 text-center mb-6">Enter your credentials to continue</p>
 
-
           {/* ERROR MESSAGE */}
           {error && (
             <div className="mb-4 px-4 py-3 bg-red-50 border border-red-200 rounded-xl text-sm text-red-600 text-center">
@@ -111,15 +110,27 @@ export default function Login() {
           <p className="text-xs text-center text-gray-400 mt-5">
             Contact your administrator to get access
           </p>
+
           {/* Signup link */}
-          <p className="text-xs text-center text-gray-500 mt-5">
+          <p className="text-xs text-center text-gray-500 mt-3">
             Don't have an account?{" "}
-             <span
-             className="text-blue-500 hover:underline cursor-pointer font-medium"
+            <span
+              className="text-blue-500 hover:underline cursor-pointer font-medium"
               onClick={() => navigate("/signup")}
-              >
+            >
               Sign Up
-              </span>
+            </span>
+          </p>
+
+          {/* Plant 1 link */}
+          <p className="text-xs text-center text-gray-500 mt-2">
+            Looking for Plant 1?{" "}
+            <a
+              href="https://deemeetingsplant1.deepiping.com"
+              className="text-blue-500 hover:underline font-medium"
+            >
+              Switch to Plant 1
+            </a>
           </p>
 
         </div>
